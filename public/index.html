@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <title><%= htmlWebpackPlugin.options.title %></title>
+  </head>
+  <body>
+    <noscript>
+      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    </noscript>
+    <canvas>
+    </canvas>
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+  </body>
+  <style>
+    @font-face {
+      font-family: 'Roboto';
+      font-style: normal;
+      font-weight: 400;
+      src: local('Roboto'), local('Roboto-Regular'),
+      url(https://fonts.gstatic.com/s/roboto/v18/KFOmCnqEu92Fr1Mu4mxKKTU1Kg.woff2) format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC,
+      U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    /* * {margin: 0; padding: 0} */
+    body {background: #000; overflow-x: hidden;}
+    canvas {
+      display: block;
+      position: absolute;
+      z-index: -100;
+    }
+  </style>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init();
+  </script>
+ <script id="INLINE_PEN_JS_ID">
+   // Initialising the canvas
+   var canvas = document.querySelector("canvas"),
+     ctx = canvas.getContext("2d");
+
+   // Setting the width and height of the canvas
+   canvas.width = window.innerWidth;
+   canvas.height = window.innerHeight;
+
+   // Setting up the letters
+   var letters =
+     "91234ABCDEFGHIJKLMNOPQRSTUVXYZABCDEFGHIJKLMNOPQRSTUVXYZABCDEFGHIJKLMNOPQRSTUVXYZABCDEFGHIJKLMNOPQRSTUVXYZABCDEFGHIJKLMNOP7QRSTU567VXYZABCDEFGHIJKLM1234NOPQRSTUVXYZ";
+   letters = letters.split("");
+
+   // Setting up the columns
+   var fontSize = 10,
+     columns = canvas.width / fontSize;
+
+   // Setting up the drops
+   var drops = [];
+   for (var i = 0; i < columns; i++) {
+     drops[i] = 1;
+   }
+
+   // Setting up the draw function
+   function draw() {
+     ctx.fillStyle = "rgba(0, 0, 0, .1)";
+     ctx.fillRect(0, 0, canvas.width, canvas.height);
+     for (var i = 0; i < drops.length; i++) {
+       var text = letters[Math.floor(Math.random() * letters.length)];
+       ctx.fillStyle = "#0f0";
+       ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+       drops[i]++;
+       if (drops[i] * fontSize > canvas.height && Math.random() > 0.95) {
+         drops[i] = 0;
+       }
+     }
+   }
+
+   // Loop the animation
+   setInterval(draw, 33);
+   //# sourceURL=pen.js
+ </script>
+</html>
